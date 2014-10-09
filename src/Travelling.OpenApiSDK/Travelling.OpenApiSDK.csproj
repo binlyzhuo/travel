@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{217E5F0D-F46C-498D-B7B1-DB75B7670B19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Travelling.OpenApiSDK</RootNamespace>
+    <AssemblyName>Travelling.OpenApiSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Travelling.OpenApiSDK.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CtripAPICommon.cs" />
+    <Compile Include="CtripBaseApiCall.cs" />
+    <Compile Include="CtripHotelOTAService.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="HttpCaller.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SceneryBaseApiService.cs" />
+    <Compile Include="WebSvcCaller.cs" />
+    <Compile Include="XmlExtends.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Travelling.CommonLibrary\Travelling.CommonLibrary.csproj">
+      <Project>{075522d2-7387-45fa-884a-e59de4c16665}</Project>
+      <Name>Travelling.CommonLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Travelling.FrameWork\Travelling.FrameWork.csproj">
+      <Project>{44ba1b80-dade-446c-a0aa-cec37a6381ba}</Project>
+      <Name>Travelling.FrameWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Travelling.OpenApiEntity\Travelling.OpenApiEntity.csproj">
+      <Project>{4fac92ac-8334-428e-a469-91a25b8663eb}</Project>
+      <Name>Travelling.OpenApiEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

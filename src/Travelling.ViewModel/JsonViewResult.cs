@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Travelling.ViewModel
+{
+    public class JsonViewResult
+    {
+        public bool Success { set; get; }
+        public string Message { set; get; }
+    }
+}
