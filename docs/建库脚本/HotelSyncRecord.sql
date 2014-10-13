@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2012                    */
-/* Created on:     2014/10/11 14:27:01                          */
+/* Created on:     2014/10/14 0:14:18                           */
 /*==============================================================*/
 
 
@@ -72,6 +72,13 @@ if exists (select 1
            where  id = object_id('T_HotelSyncRoomRatePlan')
             and   type = 'U')
    drop table T_HotelSyncRoomRatePlan
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('T_HotelSyncScheduler')
+            and   type = 'U')
+   drop table T_HotelSyncScheduler
 go
 
 if exists (select 1
@@ -3044,6 +3051,151 @@ select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '同步状态',
    'user', @CurrentUser, 'table', 'T_HotelSyncRoomRatePlan', 'column', 'SyncState'
+go
+
+/*==============================================================*/
+/* Table: T_HotelSyncScheduler                                  */
+/*==============================================================*/
+create table T_HotelSyncScheduler (
+   ID                   int                  identity,
+   StartDate            datetime             not null default getdate(),
+   EndDate              datetime             not null default getdate(),
+   SyncState            int                  not null default 0,
+   AddDate              datetime             not null default getdate(),
+   SyncType             int                  not null default 0,
+   constraint PK_T_HOTELSYNCSCHEDULER primary key (ID)
+)
+go
+
+if exists (select 1 from  sys.extended_properties
+           where major_id = object_id('T_HotelSyncScheduler') and minor_id = 0)
+begin 
+   declare @CurrentUser sysname 
+select @CurrentUser = user_name() 
+execute sp_dropextendedproperty 'MS_Description',  
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler' 
+ 
+end 
+
+
+select @CurrentUser = user_name() 
+execute sp_addextendedproperty 'MS_Description',  
+   '酒店信息同步记录', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ID')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'ID'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   ' 主键',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'ID'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'StartDate')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'StartDate'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '开始时间',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'StartDate'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'EndDate')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'EndDate'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '结束时间',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'EndDate'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'SyncState')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'SyncState'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '同步状态',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'SyncState'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'AddDate')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'AddDate'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '添加时间',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'AddDate'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('T_HotelSyncScheduler')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'SyncType')
+)
+begin
+   declare @CurrentUser sysname
+select @CurrentUser = user_name()
+execute sp_dropextendedproperty 'MS_Description', 
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'SyncType'
+
+end
+
+
+select @CurrentUser = user_name()
+execute sp_addextendedproperty 'MS_Description', 
+   '类型',
+   'user', @CurrentUser, 'table', 'T_HotelSyncScheduler', 'column', 'SyncType'
 go
 
 /*==============================================================*/
